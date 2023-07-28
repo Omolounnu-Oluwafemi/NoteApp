@@ -8,9 +8,6 @@ import database from './config/db.config'
 import indexRouter from './routes/index'
 import usersRouter from './routes/users'
 import notesRouter from './routes/notes'
-import createNotesRouter from './routes/notes'
-import updateNotesRouter from './routes/notes'
-import deleteNotesRouter from './routes/notes'
 
 database
 .sync()
@@ -36,9 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/notes', notesRouter);
-app.use('/notes/:id', createNotesRouter)
-app.use('/notes/:id', updateNotesRouter)
-app.use('/notes/:id', deleteNotesRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

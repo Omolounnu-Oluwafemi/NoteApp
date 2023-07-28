@@ -21,3 +21,31 @@ const newUser = await User.create({
    })
    
 }
+export async function getUser (req: Request, res: Response, next:NextFunction) {
+
+    const user = await User.findByPk(req.params.id)
+    if(!user){
+        res.status(404).json({
+            status: "404",
+            message: 'User not found'
+        })
+    }   
+    res.status(200).json({
+        user: user
+    })
+
+  }
+// function signIn (req: Request, res: Response, next: NextFunction){
+//     const  {username, email} = req.body
+
+//     try{
+//         const user = User.findOne({ username });
+
+//         if(!user){
+
+//         }
+//     }
+//     catch{
+
+//     }
+// }

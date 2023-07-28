@@ -7,8 +7,6 @@ const express_1 = __importDefault(require("express"));
 const usersController_1 = require("../controller/usersController");
 const router = express_1.default.Router();
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
+router.get('/:id', usersController_1.getUser);
 router.post('/', usersController_1.signUp);
 exports.default = router;

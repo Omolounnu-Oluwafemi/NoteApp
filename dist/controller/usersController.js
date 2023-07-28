@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signUp = void 0;
+exports.getUser = exports.signUp = void 0;
 const userModel_1 = require("../models/userModel");
 const uuid_1 = require("uuid");
 function signUp(req, res, next) {
@@ -30,3 +30,28 @@ function signUp(req, res, next) {
     });
 }
 exports.signUp = signUp;
+function getUser(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = yield userModel_1.User.findByPk(req.params.id);
+        if (!user) {
+            res.status(404).json({
+                status: "404",
+                message: 'User not found'
+            });
+        }
+        res.status(200).json({
+            user: user
+        });
+    });
+}
+exports.getUser = getUser;
+// function signIn (req: Request, res: Response, next: NextFunction){
+//     const  {username, email} = req.body
+//     try{
+//         const user = User.findOne({ username });
+//         if(!user){
+//         }
+//     }
+//     catch{
+//     }
+// }

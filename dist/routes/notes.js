@@ -4,33 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const notesController_1 = require("../controller/notesController");
 const router = express_1.default.Router();
-const getNotes = (req, res, next) => {
-    res.status(200).json({
-        "status": 'sucess',
-        "message": "All notes will be seen here"
-    });
-};
-const createNote = (req, res, next) => {
-    res.status(200).json({
-        "status": 'sucess',
-        "message": "Only users can post a new note"
-    });
-};
-const updateNote = (req, res, next) => {
-    res.status(200).json({
-        "status": 'sucess',
-        "message": "Only users can edit their created notes"
-    });
-};
-const deleteNote = (req, res, next) => {
-    res.status(200).json({
-        "status": 'sucess',
-        "message": "Only users can delete their created notes"
-    });
-};
-router.get('/', getNotes);
-router.post('/:id', createNote);
-router.put('/:id', updateNote);
-router.delete('/:id', deleteNote);
+router.get('/', notesController_1.getNotes);
+router.post('/:id', notesController_1.createNote);
+router.put('/:id', notesController_1.updateNote);
+router.delete('/:id', notesController_1.deleteNote);
 exports.default = router;
