@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/notes', notesRouter);
+app.use('/users/notes', notesRouter);
 
 
 // catch 404 and forward to error handler

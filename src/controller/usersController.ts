@@ -1,39 +1,70 @@
-import { NextFunction, Response,Request } from "express";
-import { User } from "../models/userModel";
+import {NextFunction, Response, Request } from "express";
+import  {User}  from "../models/userModel";
 import { v4 as uuidv4 } from "uuid";
+import {Note} from "../models/notesModel";
+import bcrypt from 'bcrypt'
 
 
 export async function signUp (req: Request, res:Response, next: NextFunction){
-const Id = uuidv4()
+const userId = uuidv4();
+const saltRounds = 10
+let plainPassword = req.body.password;
 const {username, email, firstname, lastname } = req.body
 
-const newUser = await User.create({
-    id: Id,
-    username,
-    email,
-    firstname,
-    lastname
-})
-   console.log(newUser);
+const password = await bcrypt.hash(plainPassword, saltRounds)
 
-   res.status(201).json({
-    data: {newUser}
-   })
+try {
+    const newUser = await User.create({
+        username,
+        email,
+        firstname,
+        lastname,
+        userId: userId,
+        password
+    })
+       res.status(201).json({
+        message: "New User created",
+        data: {newUser}
+       })
+} catch (error) {
+        res.status(500).json({
+        error: "Internal server error"
+    })
+}
+
    
 }
-export async function getUser (req: Request, res: Response, next:NextFunction) {
+export async function signIn (req: Request, res: Response, next:NextFunction) {
 
-    const user = await User.findByPk(req.params.id)
-    if(!user){
-        res.status(404).json({
-            status: "404",
-            message: 'User not found'
+    const {username, password} = req.body
+   
+    try {
+        const {dataValues: userData} = await User?.findByPk(username, {include: [Note]})
+      
+        if(!userData){
+            res.status(401).json({
+                status: "404",
+                message: 'Invalid username or password'
+            })
+        }   
+
+        if(userData?.password !== password){ 
+            res.status(401).json({
+                status: "404",
+                message: 'Invalid username or password'
+            })
+        }
+        res.status(200).json({
+            message: "Login successful",
+            user:  userData
         })
-    }   
-    res.status(200).json({
-        user: user
-    })
-
+    
+    } catch (error) {
+        res.status(500).json({
+            error: "Internal server error"
+        })
+    }
+   
   }
 // function signIn (req: Request, res: Response, next: NextFunction){
 //     const  {username, email} = req.body

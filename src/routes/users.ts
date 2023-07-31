@@ -1,12 +1,12 @@
 import express, { NextFunction, Response, Request } from 'express';
-import { signUp, getUser} from '../controller/usersController';
+import { signUp, signIn} from '../controller/usersController';
 
 
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/:id', getUser);
+router.post('/signin', signIn);
 
-router.post('/', signUp )
+router.post('/signup', signUp)
 
 export default router;

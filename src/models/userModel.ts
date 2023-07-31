@@ -1,24 +1,21 @@
 import {DataTypes, Model} from 'sequelize'
 import database from '../config/db.config'
+import  {Note} from "./notesModel"
 
 
 interface UserAttributes{
-    id: string;
     username: string;
     email: string;
     firstname: string;
     lastname: string;
+    userId: string;
+    password: string
 }
 
 export class User extends Model <UserAttributes> {}
 
 User.init(
     {
-    id:{
-        type: DataTypes.UUIDV4,
-        primaryKey: true,
-        allowNull: false,
-    },
     firstname:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -30,9 +27,19 @@ User.init(
     username:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        primaryKey: true,
     },
     email:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    userId:{
+        type: DataTypes.UUIDV4,
+        primaryKey: true,
+        allowNull: false,
+    },
+    password:{
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -42,3 +49,11 @@ User.init(
     modelName: "User",
 }
 )
+
+User.hasMany( Note, {
+    foreignKey: 'userId'
+})
+
+Note.belongsTo(User, {
+    foreignKey: 'userId'
+})

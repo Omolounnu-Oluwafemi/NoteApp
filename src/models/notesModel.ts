@@ -1,15 +1,18 @@
 import { DataTypes, Model } from "sequelize";
 import database from "../config/db.config";
+import {User}  from "./userModel";
 
 interface NotesAttributes{
     title: string;
     description: string;
     DueDate: string;
     status: string;
-    id: string;
+    noteId: string;
+    userId: string;
 }
 
-export class Note extends Model <NotesAttributes> {}
+export class Note extends Model <NotesAttributes> {
+}
 
 Note.init(
     {
@@ -17,27 +20,34 @@ Note.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        description: {
+    description: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        DueDate: {
+    DueDate: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        status: {
+    status: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        id:{
-            type: DataTypes.STRING,
+    noteId:{
+            type: DataTypes.UUIDV4,
             allowNull: false,
             primaryKey: true
+        },
+    userId:{
+            type: DataTypes.UUIDV4,
+            allowNull: false,
         }
     },
     {
     sequelize: database,
     modelName: "Note"
     }
-)
+);
+
+
+
 
