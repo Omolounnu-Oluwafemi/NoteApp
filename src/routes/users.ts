@@ -1,5 +1,5 @@
-import express, { NextFunction, Response, Request } from 'express';
-import { signUp, signIn} from '../controller/usersController';
+import express from 'express';
+import { signUp, signIn, deleteAccount} from '../controller/usersController';
 
 
 const router = express.Router();
@@ -8,5 +8,7 @@ const router = express.Router();
 router.post('/signin', signIn);
 
 router.post('/signup', signUp)
+
+router.delete('/:id', deleteAccount);
 
 export default router;

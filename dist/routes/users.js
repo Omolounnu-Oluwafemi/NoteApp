@@ -9,4 +9,5 @@ const router = express_1.default.Router();
 /* GET users listing. */
 router.post('/signin', usersController_1.signIn);
 router.post('/signup', usersController_1.signUp);
+router.delete('/:id', usersController_1.deleteAccount);
 exports.default = router;

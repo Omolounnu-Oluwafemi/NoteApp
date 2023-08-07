@@ -33,11 +33,13 @@ User.init(
     email:{
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     userId:{
         type: DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
+        unique: true,
     },
     password:{
         type: DataTypes.STRING,

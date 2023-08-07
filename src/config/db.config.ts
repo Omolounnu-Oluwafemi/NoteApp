@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const database = new Sequelize("database", "MyNotes", "password",{
+const database = new Sequelize("database", process.env.USERNAME, process.env.PASSWORD,{
     dialect: 'sqlite',
     storage: "./database.sqlite",
     logging: false

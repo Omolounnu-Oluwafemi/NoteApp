@@ -1,3 +1,4 @@
+import {config} from "dotenv"
 import createError from 'http-errors'
 import express,  {Request, Response, NextFunction}  from 'express'
 import path from 'path'
@@ -17,6 +18,8 @@ database
 .catch((err)=>{
   console.log(err)
 })
+
+config()
 
 const app = express();
 
@@ -38,7 +41,7 @@ app.use('/users/notes', notesRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
-});
+});  
 
 // error handler
 app.use( function (err: createError.HttpError, req: Request, res: Response, next: NextFunction) {

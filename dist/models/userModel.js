@@ -28,11 +28,13 @@ User.init({
     email: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     userId: {
         type: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
         allowNull: false,
+        unique: true,
     },
     password: {
         type: sequelize_1.DataTypes.STRING,

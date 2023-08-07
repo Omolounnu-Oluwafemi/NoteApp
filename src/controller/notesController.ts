@@ -29,11 +29,10 @@ export const getNote = async (req: Request, res: Response, next: NextFunction) =
     const {title,  description, DueDate, status} = req.body
 
     try {
-
     const newNote = await Note.create({
         title,
         description,
-        DueDate,
+        DueDate,        
         status,
         noteId: uui44(),
         userId
@@ -51,12 +50,13 @@ export const getNote = async (req: Request, res: Response, next: NextFunction) =
     const { title, description, DueDate, status } = req.body;
 
     try {
-        const noteToUpdate = await Note.findByPk(req.params.id);
+        const noteToUpdate= await Note.findByPk(req.params.id);
 
         if (!noteToUpdate) {
             return res.status(404).json({ error: "Note not found" });
         }
 
+        
         if (title) {
             noteToUpdate.title = title;
         }
